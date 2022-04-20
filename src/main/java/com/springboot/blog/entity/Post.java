@@ -32,6 +32,7 @@ public class Post {
     @Column(name = "content", nullable = false)
     private String content;
 
+    //orphanRemoval = true cause deletion comments, if equal false, then it will update
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
 

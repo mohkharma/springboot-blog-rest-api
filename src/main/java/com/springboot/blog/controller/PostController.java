@@ -26,7 +26,7 @@ public class PostController {
     }
 
     @ApiOperation(value = "Create Post REST API")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     // create blog post rest api
     @PostMapping("/api/v1/posts")
     public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto){
@@ -53,7 +53,7 @@ public class PostController {
     }
 
     @ApiOperation(value = "Update Post By Id REST API")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     // update post by id rest api
     @PutMapping("/api/v1/posts/{id}")
     public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto, @PathVariable(name = "id") long id){
@@ -64,7 +64,7 @@ public class PostController {
     }
 
     @ApiOperation(value = "Delete Post By Id REST API")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     // delete post rest api
     @DeleteMapping("/api/v1/posts/{id}")
     public ResponseEntity<String> deletePost(@PathVariable(name = "id") long id){
