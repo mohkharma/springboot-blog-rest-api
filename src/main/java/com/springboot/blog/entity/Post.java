@@ -1,6 +1,7 @@
 package com.springboot.blog.entity;
 
 import lombok.*;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -33,6 +34,7 @@ public class Post {
     private String content;
 
     //orphanRemoval = true cause deletion comments, if equal false, then it will update
+    @Lazy
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
 
