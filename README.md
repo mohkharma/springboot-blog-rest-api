@@ -3,7 +3,7 @@ Reposotory was taken from github.com/RameshMF/springboot-blog-rest-api.git for e
 Hypermedia-driven REST service with Spring HATEOAS
 Try:
 http://localhost:9080/api/v1/posts/1
-
+```JSON
 {
    "id":1,
    "title":"sample",
@@ -19,3 +19,4 @@ http://localhost:9080/api/v1/posts/1
       }
    }
 }
+```
