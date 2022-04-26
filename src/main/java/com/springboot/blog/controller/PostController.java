@@ -13,7 +13,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import org.springframework.hateoas.Link;
 @Api(value = "CRUD Rest APIs for Post resources")
 @RestController
 @RequestMapping()
@@ -49,14 +51,29 @@ public class PostController {
     // get post by id
     @GetMapping(value = "/api/v1/posts/{id}")
     public ResponseEntity<PostDto> getPostByIdV1(@PathVariable(name = "id") long id){
-        return ResponseEntity.ok(postService.getPostById(id));
+        PostDto postDto = postService.getPostById(id);
+
+        // Self link
+        Link selfLink = linkTo(PostController.class)
+                .slash(postDto.getId()).withSelfRel();
+
+        // Method link
+        Link reportLink = linkTo(methodOn(CommentController.class)
+                .getCommentsByPostId(postDto.getId()))
+                .withRel("comments");
+
+        postDto.add(selfLink);
+        postDto.add(reportLink);
+        return ResponseEntity.ok(postDto);
     }
 
     @ApiOperation(value = "Update Post By Id REST API")
 //    @PreAuthorize("hasRole('ADMIN')")
     // update post by id rest api
     @PutMapping("/api/v1/posts/{id}")
-    public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto, @PathVariable(name = "id") long id){
+    public ResponseEntity<PostDto> updatePost(@Valid @RequestBody
+                                                          PostDto postDto,
+                                              @PathVariable(name = "id") long id){
 
        PostDto postResponse = postService.updatePost(postDto, id);
 
