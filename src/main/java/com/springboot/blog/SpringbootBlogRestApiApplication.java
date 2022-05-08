@@ -12,32 +12,32 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAut
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(exclude = {SecurityFilterAutoConfiguration.class,
-		SecurityAutoConfiguration.class})
+        SecurityAutoConfiguration.class})
 
 public class SpringbootBlogRestApiApplication implements CommandLineRunner {
 
-	@Bean
-	public ModelMapper modelMapper(){
-		return new ModelMapper();
-	}
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringbootBlogRestApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootBlogRestApiApplication.class, args);
+    }
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Override
-	public void run(String... args) throws Exception {
+    @Override
+    public void run(String... args) throws Exception {
 
-		Role adminRole = new Role();
-		adminRole.setName("ROLE_ADMIN");
-		roleRepository.save(adminRole);
+        Role adminRole = new Role();
+        adminRole.setName("ROLE_ADMIN");
+        roleRepository.save(adminRole);
 
-		Role userRole = new Role();
-		userRole.setName("ROLE_USER");
-		roleRepository.save(userRole);
+        Role userRole = new Role();
+        userRole.setName("ROLE_USER");
+        roleRepository.save(userRole);
 
-	}
+    }
 }

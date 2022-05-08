@@ -21,6 +21,7 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
     private PostRepository postRepository;
     private ModelMapper mapper;
+
     public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository, ModelMapper mapper) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
@@ -40,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setPost(post);
 
         // comment entity to DB
-        Comment newComment =  commentRepository.save(comment);
+        Comment newComment = commentRepository.save(comment);
 
         return mapToDTO(newComment);
     }
@@ -64,7 +65,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
                 new ResourceNotFoundException("Comment", "id", commentId));
 
-        if(!comment.getPost().getId().equals(post.getId())){
+        if (!comment.getPost().getId().equals(post.getId())) {
             throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Comment does not belong to post");
         }
 
@@ -81,7 +82,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
                 new ResourceNotFoundException("Comment", "id", commentId));
 
-        if(!comment.getPost().getId().equals(post.getId())){
+        if (!comment.getPost().getId().equals(post.getId())) {
             throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Comment does not belongs to post");
         }
 
@@ -103,14 +104,14 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
                 new ResourceNotFoundException("Comment", "id", commentId));
 
-        if(!comment.getPost().getId().equals(post.getId())){
+        if (!comment.getPost().getId().equals(post.getId())) {
             throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Comment does not belongs to post");
         }
 
         commentRepository.delete(comment);
     }
 
-    private CommentDto mapToDTO(Comment comment){
+    private CommentDto mapToDTO(Comment comment) {
         CommentDto commentDto = mapper.map(comment, CommentDto.class);
 
 //        CommentDto commentDto = new CommentDto();
@@ -118,16 +119,16 @@ public class CommentServiceImpl implements CommentService {
 //        commentDto.setName(comment.getName());
 //        commentDto.setEmail(comment.getEmail());
 //        commentDto.setBody(comment.getBody());
-        return  commentDto;
+        return commentDto;
     }
 
-    private Comment mapToEntity(CommentDto commentDto){
+    private Comment mapToEntity(CommentDto commentDto) {
         Comment comment = mapper.map(commentDto, Comment.class);
 //        Comment comment = new Comment();
 //        comment.setId(commentDto.getId());
 //        comment.setName(commentDto.getName());
 //        comment.setEmail(commentDto.getEmail());
 //        comment.setBody(commentDto.getBody());
-        return  comment;
+        return comment;
     }
 }
